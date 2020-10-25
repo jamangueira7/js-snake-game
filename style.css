@@ -1,0 +1,53 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#container {
+    border: 2px solid gray;
+    border-radius: 10%;
+    width: 490px;
+    height: 900px;
+    background-image: url('images/minigame.png');
+    background-repeat: no-repeat;
+    background-size: 490px 900px;
+
+}
+
+#canvas {
+
+    width: 400px;
+    height: 400px;
+
+    padding-left: 45px;
+    padding-top: 55px;
+
+
+}
+
+#label {
+    background: azure;
+    border: 2px solid gray;
+    width: 150px;
+    height: 600px;
+
+    border-bottom-right-radius:35%;
+    border-top-right-radius:35%;
+
+    font-size: 18px;
+    font-weight: bold;
+    padding-left: 20px;
+}
+
+#instructions {
+    font-size: 12px;
+    font-weight: bold;
+    padding-top: 35px;
+}
+
+#label #instructions img {
+    padding-left: 0;
+    width: 100px;
+    height: 60px;
+}
