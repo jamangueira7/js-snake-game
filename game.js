@@ -1,3 +1,15 @@
+snake = [];
+positionX = 10;
+positionY = 10;
+foodX = 15;
+foodY = 15;
+grid = 20;
+velX = 0;
+velY = 0;
+size = 5;
+
+level_in=5
+
 window.onload = function (){
     canvas = document.getElementById("canvas");
     ctx = canvas.getContext('2d');
@@ -22,38 +34,58 @@ window.onload = function (){
                 break;
         }
     });
-    setInterval(game, 1000/10);
+    setInterval(game, 1000/level_in);
 }
 
-snake = [];
-positionX = 10;
-positionY = 10;
-foodX = 15;
-foodY = 15;
-grid = 20;
-velX = 0;
-velY = 0;
-size = 5;
+
+function checkLoss() {
+    if (positionX < 0 || positionX > grid || positionY < 0 || positionY > grid) {
+        alert('Você perdeu!');
+        gameStart();
+        return;
+    }
+}
+
+function checkWinner() {
+    fruit = parseInt(document.getElementById('fruit').innerText);
+    level = parseInt(document.getElementById('level').innerText);
+    if(level == 10 && fruit == 20) {
+        alert('Você Chegou ao final do jogo! Parabéns! ');
+        gameStart()
+        return;
+    }
+
+    if(fruit == 20) {
+        if(level < 6 ){
+            level_in +=2;
+        }else{
+            level_in +=1
+        }
+        size = 5;
+        document.getElementById('level').innerHTML = level + 1;
+        document.getElementById('fruit').innerHTML = 0;
+    }
+}
+
+function gameStart() {
+    document.getElementById('fruit').innerHTML = 0;
+    document.getElementById('level').innerHTML = 0;
+
+    positionX = 10;
+    positionY = 10;
+    velX = 0;
+    velY = 0;
+    size = 5;
+    grid = 20;
+}
 
 function game() {
+    console.log(velX)
     positionX += velX;
     positionY += velY;
 
-    if (positionX < 0) {
-        positionX = grid;
-    }
-
-    if (positionX > grid) {
-        positionX = 0;
-    }
-
-    if (positionY < 0) {
-        positionY = grid;
-    }
-
-    if (positionY > grid) {
-        positionY = 0;
-    }
+    checkLoss();
+    checkWinner();
 
     ctx.fillStyle = 'azure';
     ctx.fillRect(0, 0, canvas.width, canvas.height );
@@ -61,7 +93,9 @@ function game() {
     fruit = parseInt(document.getElementById('fruit').innerText);
 
     ctx.fillStyle = 'darkolivegreen';
+
     for( var i=0; i < snake.length; i++){
+
         ctx.fillRect(snake[i].x * grid, snake[i].y * grid, grid-1, grid-1);
 
         if(snake[i].x == positionX && snake[i].y == positionY ) {
